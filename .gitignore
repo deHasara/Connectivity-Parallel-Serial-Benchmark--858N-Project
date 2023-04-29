@@ -1,0 +1,8 @@
+#ignore executables
+bin/*
+!bin/makefile  
+
+#IDE stuff 
+src/.vscode 
+
+
