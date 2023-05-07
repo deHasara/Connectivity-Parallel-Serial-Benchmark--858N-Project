@@ -1,6 +1,7 @@
 #ignore executables
 bin/*
 !bin/makefile  
+!bin/*.py 
 
 #IDE stuff 
 src/.vscode 
