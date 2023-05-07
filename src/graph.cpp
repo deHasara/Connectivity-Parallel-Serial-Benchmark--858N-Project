@@ -27,7 +27,10 @@ struct Graph * init_graph(std::string file_name){
             int n1; 
             int n2; 
             const char * c_line = line.c_str();   
-            sscanf(c_line, "%d,%d ", &n1, &n2 );  
+            int res = sscanf(c_line, "%d,%d ", &n1, &n2 );   
+            if(res < 0){
+                break; 
+            }
             struct EdgeNode * edgeNode = (struct EdgeNode *) malloc(sizeof(struct EdgeNode)); 
             edgeNode->node = n2; 
             edgeNode->next = NULL;  
