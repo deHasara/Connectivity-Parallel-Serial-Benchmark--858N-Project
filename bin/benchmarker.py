@@ -63,4 +63,4 @@ for i in  range(trails):
     print("Trail " + str(i + 1) + " Runtime: " + str(elasped_time) + " seconds\n")
 
 output.close()    
-print("Average Runtime: " + str(elasped_time/total) + " seconds")
+print("Average Runtime: " + str(total/trails) + " seconds")
