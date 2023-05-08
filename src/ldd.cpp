@@ -28,13 +28,19 @@ int * LDD_serial(struct Graph * g, int n, float b){
         
         float cut_edges = 0; 
         float internal_edges = 0; 
-        struct BFS_Queue * queue = (struct BFS_Queue *) malloc(sizeof(struct BFS_Queue));  
-        memset(queue, 0, sizeof(struct BFS_Queue)); 
+        struct BFS_Queue * queue = (struct BFS_Queue *) malloc(sizeof(struct BFS_Queue)); 
+        memset(queue, 0, sizeof(struct BFS_Queue));   
+        int cut_array[n]; 
+        memset(cut_array, 0, n * sizeof(int)); 
+
         enqueue(queue, node);   
         visited[node] = true; 
         while(queue->head != NULL && cut_edges >= b * internal_edges ){ //bfs
             int curr_node = dequeue(queue); 
-            labels[curr_node] = cluster; 
+            labels[curr_node] = cluster;   
+            //redistrubute edges already seen
+            internal_edges += cut_array[curr_node]; 
+            cut_edges -= cut_array[curr_node]; 
             
 
             ptr = g->list[curr_node]; 
@@ -44,9 +50,9 @@ int * LDD_serial(struct Graph * g, int n, float b){
                     visited[ptr->node] = true;
                 } 
                 if(labels[ptr->node] != cluster){
-                    cut_edges +=1; // add cut edges added by curr_node
-                }else{
-                    cut_edges -=1; 
+                    cut_edges +=1; // add cut edges added by curr_node 
+                    cut_array[ptr->node]++; 
+                }else{ 
                     internal_edges += 1; 
                 }
                 ptr = ptr->next; 
@@ -58,6 +64,7 @@ int * LDD_serial(struct Graph * g, int n, float b){
         } 
         free(queue);
 
+        memset(cut_array, 0, n * sizeof(int)); 
         cluster++; 
     } 
 

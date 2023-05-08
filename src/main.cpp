@@ -3,10 +3,12 @@
 #include "graph.h" 
 #include "ldd.h"
 
-int main(void){
+int main(int argc, char *argv[]){
     struct Graph * g = init_graph("temp"); 
-    print_graph(g);  
-    int * labels = LDD_serial(g, g->n, 0.2f);  
+    print_graph(g);   
+    float beta = 0; 
+    sscanf(argv[1], "%f", &beta);
+    int * labels = LDD_serial(g, g->n, beta);  
     print_labels(labels, g->n); 
 
     return 0; 

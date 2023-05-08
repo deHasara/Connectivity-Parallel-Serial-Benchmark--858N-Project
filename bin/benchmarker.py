@@ -38,14 +38,16 @@ def snapTotemp(file_path):
      
 
 ################################# MAIN ##########################################################
-if len(sys.argv) < 3: 
-    print("USAGE\n python3 benchmarker.py [SNAP .edges file] [# of trails]\n EXAMPLE: python3 benchmarker.py ../data/SNAP/1.edges 10") 
+if len(sys.argv) < 4: 
+    print("USAGE\n python3 benchmarker.py [SNAP .edges file] [beta] [# of trails]\n EXAMPLE: python3 benchmarker.py ../data/SNAP/1.edges 10") 
     exit();  
   
 snap_file = sys.argv[1]
 snapTotemp(snap_file) 
 
-trails = int(sys.argv[2]) 
+beta = sys.argv[2] 
+
+trails = int(sys.argv[3]) 
 total = 0.0  
 
 if os.path.exists("./output"): 
@@ -55,7 +57,7 @@ output = open("./output", "w")
 print("****** Begining Benchmarking *******\n") 
 for i in  range(trails): 
     start_time = time.time()
-    subprocess.run("./main", stdout=output) 
+    subprocess.run(["./main", str(beta)], stdout=output) 
     elasped_time = time.time() - start_time  
     total +=  elasped_time 
     print("Trail " + str(i + 1) + " Runtime: " + str(elasped_time) + " seconds\n")
